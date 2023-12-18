@@ -37,7 +37,9 @@ public class GameManager : MonoBehaviour
     public AudioSource wooshSound;          //added woosh sound for the start
     public AudioSource lossSound;           //added loss sound for the end
 
-    public bool shouldStopSpawning = false; //boolean to stop spawning
+    public bool shouldStopSpawning = false; //added boolean to stop spawning
+    public Toggle toggleInfo;               //added toggle input to show info credits in the end
+    public Toggle toggleMessage;            //added to toggle message to show in the end
     
     /// <summary>
     /// Getter for the singleton GameManager object.
@@ -153,7 +155,11 @@ public class GameManager : MonoBehaviour
         outsideMusic.Stop();
         lossSound.Play();
         shouldStopSpawning = true;           //assignment to indicate end
-        
+    
+        //added to show info credits and message in the end a
+        toggleInfo.isOn = true;
+        toggleMessage.isOn = true;
+
         // Loose the game.
         mGameLost = true;
     }
