@@ -76,7 +76,7 @@ public class Enemy : MonoBehaviour
          * Implement a simple AI, which will head towards the closest player and follow them.
          */
         
-        //PRIDANIE
+        //added
         Vector3 mPosToFollow = Vector3.zero;
         GameObject nearestPlayerObject;
         nearestPlayerObject = GameManager.Instance.NearestPlayer(transform.position);

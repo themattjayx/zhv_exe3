@@ -98,17 +98,23 @@ public class EnemySpawner : MonoBehaviour
     /// </summary>
     void FixedUpdate()
     {
-        if (spawnEnabled)
-        {
-            // Cool down the spawner by the elapsed time.
-            mCoolDown -= Time.deltaTime;
+        GameManager stopSpawn = FindObjectOfType<GameManager>(); //added for access of variable from different script
+        bool shouldStopSpawning = stopSpawn.shouldStopSpawning;
+        
+        if (shouldStopSpawning == false) {                //added condition to stop spawning in the end
+            if (spawnEnabled)
+            {
+                // Cool down the spawner by the elapsed time.
+                mCoolDown -= Time.deltaTime;
 
-            while (mCoolDown <= 0.0f)
-            { // Spawn corresponding number of bullets.
-                SpawnEnemy(transform.position);
-                
-                // "Heat up" the gun.
-                mCoolDown += spawnDelay;
+                while (mCoolDown <= 0.0f)
+                {
+                    // Spawn corresponding number of bullets.
+                    SpawnEnemy(transform.position);
+
+                    // "Heat up" the gun.
+                    mCoolDown += spawnDelay;
+                }
             }
         }
     }

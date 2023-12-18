@@ -82,6 +82,8 @@ public class Gun : MonoBehaviour
     /// Entity prefab used as a base for each entity.
     /// </summary>
     private Entity mBulletEntityPrefab;
+    
+    public AudioSource wandSound;           //added sound for wand
 
     /// <summary>
     /// Called when the script instance is first loaded.
@@ -131,7 +133,7 @@ public class Gun : MonoBehaviour
         // Cool down the weapon by the elapsed time.
         mCoolDown -= Time.deltaTime;
         
-        //PRIDANIE pre zmenu fire ratu
+        //added for change of fire rate
         if (shotgun == false)
         {
             AdjustFireRate(600);
@@ -211,12 +213,13 @@ public class Gun : MonoBehaviour
          * Implement both single shot and shotgun (swap by pressing <SPACE> by default)
          */
         
-        SpawnBullet(                //ZMENA 0.0f na director.position
+        //changes to parameters
+        SpawnBullet( 
             new Vector3{ x = director.position.x, y = director.position.y, z = 0.0f }, 
             Quaternion.Euler(director.eulerAngles.x, director.eulerAngles.y, director.eulerAngles.z)
-        );                          //ZMENA 0.0f na director.eulerAngles pre 2D v Z axis, rotation nefunguje
-        
-        //PRIDANIE pre trojite
+        );
+        wandSound.Play();       //added for wand sound effect
+        //added for three-way shots
         if (shotgun == true)
         {
             SpawnBullet( 
@@ -241,7 +244,6 @@ public class Gun : MonoBehaviour
         
         // Offset the bullet's position.
         bulletPosition += (bulletRotation * Vector3.forward) * spawnOffset;
-        
         // Spawn the bullet.
         SpawnBullet(bulletPosition, bulletRotation);
     }
@@ -285,5 +287,5 @@ public class Gun : MonoBehaviour
         // Clamp the values to be at least 1.0f.
         shotgunBullets = Math.Max(shotgunBullets + magnitude, 1);
     }
-    //NEPOUZITE
+    //unused
 }

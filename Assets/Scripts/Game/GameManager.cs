@@ -32,6 +32,13 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private static GameManager sInstance;
     
+    public AudioSource ambientMusic;        //added music for ambient music
+    public AudioSource outsideMusic;        //added for background music 
+    public AudioSource wooshSound;          //added woosh sound for the start
+    public AudioSource lossSound;           //added loss sound for the end
+
+    public bool shouldStopSpawning = false; //boolean to stop spawning
+    
     /// <summary>
     /// Getter for the singleton GameManager object.
     /// </summary>
@@ -57,6 +64,11 @@ public class GameManager : MonoBehaviour
     {
         // Setup the game scene.
         SetupGame();
+        
+        //added for audio play
+        ambientMusic.Play();
+        outsideMusic.Play();
+        wooshSound.Play();
     }
 
     /// <summary>
@@ -88,6 +100,9 @@ public class GameManager : MonoBehaviour
         
         // Update the current list of players.
         UpdatePlayers();
+
+        if (mLivingPlayers.Count == 0 && mGameLost == false)        //addition for losing game if still playing                  
+        {LooseGame();}
     }
 
     /// <summary>
@@ -133,6 +148,12 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void LooseGame()
     {
+        //added to stop ambient and outside music and play loss sound
+        ambientMusic.Stop();
+        outsideMusic.Stop();
+        lossSound.Play();
+        shouldStopSpawning = true;           //assignment to indicate end
+        
         // Loose the game.
         mGameLost = true;
     }
